@@ -8,8 +8,7 @@ import com.ruoyi.system.domain.SysNotice;
  * 
  * @author ruoyi
  */
-public interface ISysNoticeService
-{
+public interface ISysNoticeService {
     /**
      * 查询公告信息
      * 
@@ -26,6 +25,11 @@ public interface ISysNoticeService
      */
     public List<SysNotice> selectNoticeList(SysNotice notice);
 
+    /**
+     * 查询待通知的公告
+     * @return
+     */
+    public List<SysNotice> selectUnNoticeList(SysNotice notice);
     /**
      * 新增公告
      * 
