@@ -15,6 +15,7 @@ import java.util.List;
  */
 @Service
 public class SysNoticeServiceImpl implements ISysNoticeService {
+
     @Autowired
     private SysNoticeMapper noticeMapper;
 
@@ -38,14 +39,6 @@ public class SysNoticeServiceImpl implements ISysNoticeService {
     @Override
     public List<SysNotice> selectNoticeList(SysNotice notice) {
         return noticeMapper.selectNoticeList(notice);
-    }
-    /**
-     * 查询待通知的公告
-     * @return 公告集合
-     */
-    @Override
-    public List<SysNotice> selectUnNoticeList(SysNotice notice) {
-        return noticeMapper.selectUnNoticeList(notice);
     }
 
     /**

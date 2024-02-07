@@ -27,11 +27,6 @@ public interface ISysNoticeService {
     List<SysNotice> selectNoticeList(SysNotice notice);
 
     /**
-     * 查询待通知的公告
-     * @return
-     */
-    List<SysNotice> selectUnNoticeList(SysNotice notice);
-    /**
      * 新增公告
      *
      * @param notice 公告信息

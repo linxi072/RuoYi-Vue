@@ -41,9 +41,8 @@ public class SysNotice extends BaseEntity {
     /** 通知范围（0不限制 1机构 2角色） */
     private String noticeRange;
 
-    /** 失效时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date expirationTime;
+    /** 时间范围(例如 2024-01-01,2024-02-29) */
+    private String dateRange;
 
     /** 范围数据 */
     private String rangeData;
