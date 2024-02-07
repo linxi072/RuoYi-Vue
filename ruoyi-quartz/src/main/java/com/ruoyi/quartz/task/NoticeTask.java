@@ -59,7 +59,7 @@ public class NoticeTask {
                     return false;
                 }).map(SysUser::getEmail).collect(Collectors.toList());
                 //群发邮件
-                mailUtils.sendSimpleMail(emailList.toArray(new String[emailList.size()]),"测试邮件","");
+                mailUtils.sendMimeMail(emailList,sysNotice.getNoticeTitle(), sysNotice.getNoticeContent());
             });
         }
         System.out.println("定时发送邮件执行完成");
