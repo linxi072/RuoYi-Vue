@@ -1,15 +1,5 @@
 package com.ruoyi.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.validation.Validator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import com.ruoyi.common.annotation.DataScope;
 import com.ruoyi.common.constant.UserConstants;
 import com.ruoyi.common.core.domain.entity.SysRole;
@@ -22,52 +12,47 @@ import com.ruoyi.common.utils.spring.SpringUtils;
 import com.ruoyi.system.domain.SysPost;
 import com.ruoyi.system.domain.SysUserPost;
 import com.ruoyi.system.domain.SysUserRole;
-import com.ruoyi.system.mapper.SysPostMapper;
-import com.ruoyi.system.mapper.SysRoleMapper;
-import com.ruoyi.system.mapper.SysUserMapper;
-import com.ruoyi.system.mapper.SysUserPostMapper;
-import com.ruoyi.system.mapper.SysUserRoleMapper;
+import com.ruoyi.system.mapper.*;
 import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import javax.validation.Validator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户 业务层处理
- * 
+ *
  * @author ruoyi
  */
 @Service
 public class SysUserServiceImpl implements ISysUserService {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
-
+    @Autowired
+    protected Validator validator;
     @Autowired
     private SysUserMapper userMapper;
-
     @Autowired
     private SysRoleMapper roleMapper;
-
     @Autowired
     private SysPostMapper postMapper;
-
     @Autowired
     private SysUserRoleMapper userRoleMapper;
-
     @Autowired
     private SysUserPostMapper userPostMapper;
-
     @Autowired
     private ISysConfigService configService;
 
-    @Autowired
-    protected Validator validator;
-
-    @Override
-    public List<SysUser> selectUsersNoPermissions(SysUser user) {
-        return userMapper.selectUserList(user);
-    }
-
     /**
      * 根据条件分页查询用户列表
-     * 
+     *
      * @param user 用户信息
      * @return 用户信息集合信息
      */
@@ -79,7 +64,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 根据条件分页查询已分配用户角色列表
-     * 
+     *
      * @param user 用户信息
      * @return 用户信息集合信息
      */
@@ -91,7 +76,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 根据条件分页查询未分配用户角色列表
-     * 
+     *
      * @param user 用户信息
      * @return 用户信息集合信息
      */
@@ -103,7 +88,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 通过用户名查询用户
-     * 
+     *
      * @param userName 用户名
      * @return 用户对象信息
      */
@@ -114,7 +99,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 通过用户ID查询用户
-     * 
+     *
      * @param userId 用户ID
      * @return 用户对象信息
      */
@@ -125,7 +110,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 查询用户所属角色组
-     * 
+     *
      * @param userName 用户名
      * @return 结果
      */
@@ -140,7 +125,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 查询用户所属岗位组
-     * 
+     *
      * @param userName 用户名
      * @return 结果
      */
@@ -155,7 +140,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 校验用户名称是否唯一
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -203,7 +188,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 校验用户是否允许操作
-     * 
+     *
      * @param user 用户信息
      */
     @Override
@@ -215,7 +200,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 校验用户是否有数据权限
-     * 
+     *
      * @param userId 用户id
      */
     @Override
@@ -232,7 +217,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 新增保存用户信息
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -250,7 +235,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 注册用户信息
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -261,7 +246,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 修改保存用户信息
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -282,8 +267,8 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 用户授权角色
-     * 
-     * @param userId 用户ID
+     *
+     * @param userId  用户ID
      * @param roleIds 角色组
      */
     @Override
@@ -295,7 +280,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 修改用户状态
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -306,7 +291,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 修改用户基本信息
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -317,9 +302,9 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 修改用户头像
-     * 
+     *
      * @param userName 用户名
-     * @param avatar 头像地址
+     * @param avatar   头像地址
      * @return 结果
      */
     @Override
@@ -329,7 +314,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 重置用户密码
-     * 
+     *
      * @param user 用户信息
      * @return 结果
      */
@@ -340,7 +325,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 重置用户密码
-     * 
+     *
      * @param userName 用户名
      * @param password 密码
      * @return 结果
@@ -352,7 +337,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 新增用户角色信息
-     * 
+     *
      * @param user 用户对象
      */
     public void insertUserRole(SysUser user) {
@@ -361,7 +346,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 新增用户岗位信息
-     * 
+     *
      * @param user 用户对象
      */
     public void insertUserPost(SysUser user) {
@@ -381,8 +366,8 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 新增用户角色信息
-     * 
-     * @param userId 用户ID
+     *
+     * @param userId  用户ID
      * @param roleIds 角色组
      */
     public void insertUserRole(Long userId, Long[] roleIds) {
@@ -401,7 +386,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 通过用户ID删除用户
-     * 
+     *
      * @param userId 用户ID
      * @return 结果
      */
@@ -417,7 +402,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 批量删除用户信息
-     * 
+     *
      * @param userIds 需要删除的用户ID
      * @return 结果
      */
@@ -437,10 +422,10 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 导入用户数据
-     * 
-     * @param userList 用户数据列表
+     *
+     * @param userList        用户数据列表
      * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
-     * @param operName 操作用户
+     * @param operName        操作用户
      * @return 结果
      */
     @Override

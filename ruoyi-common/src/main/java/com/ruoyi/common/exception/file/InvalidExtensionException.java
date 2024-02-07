@@ -10,9 +10,9 @@ import java.util.Arrays;
 public class InvalidExtensionException extends FileUploadException {
     private static final long serialVersionUID = 1L;
 
-    private final String[] allowedExtension;
-    private final String extension;
-    private final String filename;
+    private String[] allowedExtension;
+    private String extension;
+    private String filename;
 
     public InvalidExtensionException(String[] allowedExtension, String extension, String filename) {
         super("文件[" + filename + "]后缀[" + extension + "]不正确，请上传" + Arrays.toString(allowedExtension) + "格式");

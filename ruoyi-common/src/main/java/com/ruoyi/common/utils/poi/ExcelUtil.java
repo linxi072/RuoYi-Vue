@@ -130,7 +130,7 @@ public class ExcelUtil<T> {
     /**
      * 统计列表
      */
-    private final Map<Integer, Double> statistics = new HashMap<Integer, Double>();
+    private Map<Integer, Double> statistics = new HashMap<Integer, Double>();
 
     public ExcelUtil(Class<T> clazz) {
         this.clazz = clazz;
@@ -692,7 +692,7 @@ public class ExcelUtil<T> {
             rowNo = isSubList() ? (i > 1 ? rowNo + 1 : rowNo + i) : i + 1 + rownum - startNo;
             row = sheet.createRow(rowNo);
             // 得到导出对象.
-            T vo = list.get(i);
+            T vo = (T) list.get(i);
             Collection<?> subList = null;
             if (isSubList()) {
                 if (isSubListValue(vo)) {
@@ -1077,7 +1077,7 @@ public class ExcelUtil<T> {
     public String dataFormatHandlerAdapter(Object value, Excel excel, Cell cell) {
         try {
             Object instance = excel.handler().newInstance();
-            Method formatMethod = excel.handler().getMethod("format", Object.class, String[].class, Cell.class, Workbook.class);
+            Method formatMethod = excel.handler().getMethod("format", new Class[]{Object.class, String[].class, Cell.class, Workbook.class});
             value = formatMethod.invoke(instance, value, excel.args(), cell, this.wb);
         } catch (Exception e) {
             log.error("不能格式化数据 " + excel.handler(), e.getMessage());
@@ -1379,7 +1379,7 @@ public class ExcelUtil<T> {
     public Collection<?> getListCellValue(Object obj) {
         Object value;
         try {
-            value = subMethod.invoke(obj);
+            value = subMethod.invoke(obj, new Object[]{});
         } catch (Exception e) {
             return new ArrayList<Object>();
         }
@@ -1399,7 +1399,7 @@ public class ExcelUtil<T> {
         getMethodName.append(name.substring(1));
         Method method = null;
         try {
-            method = pojoClass.getMethod(getMethodName.toString());
+            method = pojoClass.getMethod(getMethodName.toString(), new Class[]{});
         } catch (Exception e) {
             log.error("获取对象异常{}", e.getMessage());
         }

@@ -2,14 +2,14 @@ package com.ruoyi.common.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-import javax.mail.*;
+import javax.mail.Address;
+import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -28,6 +28,7 @@ public class MailUtils {
 
     @Value("${spring.mail.username}")
     private String from;
+
     public void sendMimeMail(List<String> toMail, String subject, String text) {
         this.sendMimeMail(toMail, null, null, subject, text, null);
     }
@@ -37,17 +38,18 @@ public class MailUtils {
     }
 
     public void sendMimeMail(List<String> toMail, List<String> ccMail, String subject, String text, List<File> files) {
-       this.sendMimeMail(toMail, ccMail, null, subject, text, files);
+        this.sendMimeMail(toMail, ccMail, null, subject, text, files);
     }
 
 
     /**
      * * 发送文本/html邮件
-     * @param toMail 接收
-     * @param ccMail 抄送
+     *
+     * @param toMail  接收
+     * @param ccMail  抄送
      * @param bccMail 密件抄送
      * @param subject 主题
-     * @param text 内容
+     * @param text    内容
      */
     @Async("threadPoolTaskExecutor")
     public void sendMimeMail(List<String> toMail, List<String> ccMail, List<String> bccMail, String subject, String text, List<File> files) {
@@ -76,7 +78,7 @@ public class MailUtils {
                 //创建邮件正文
                 MimeBodyPart bodyPart = new MimeBodyPart();
                 //添加邮件类型
-                bodyPart.setContent(text,"text/html;charset=UTF-8");
+                bodyPart.setContent(text, "text/html;charset=UTF-8");
                 //内容配置
                 bodyPart.setDisposition("----------------内容配置------------------");
                 //内容描述

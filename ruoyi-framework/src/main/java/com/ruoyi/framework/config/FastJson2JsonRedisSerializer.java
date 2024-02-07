@@ -9,7 +9,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Redis使用FastJson序列化
@@ -17,11 +16,11 @@ import java.nio.charset.StandardCharsets;
  * @author ruoyi
  */
 public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
-    public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
     static final Filter AUTO_TYPE_FILTER = JSONReader.autoTypeFilter(Constants.JSON_WHITELIST_STR);
 
-    private final Class<T> clazz;
+    private Class<T> clazz;
 
     public FastJson2JsonRedisSerializer(Class<T> clazz) {
         super();

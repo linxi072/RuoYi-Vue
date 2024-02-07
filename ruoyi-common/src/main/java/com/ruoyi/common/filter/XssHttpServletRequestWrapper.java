@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * XSS过滤处理
@@ -50,14 +49,14 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
 
         // 为空，直接返回
-        String json = IOUtils.toString(super.getInputStream(), StandardCharsets.UTF_8);
+        String json = IOUtils.toString(super.getInputStream(), "utf-8");
         if (StringUtils.isEmpty(json)) {
             return super.getInputStream();
         }
 
         // xss过滤
         json = EscapeUtil.clean(json).trim();
-        byte[] jsonBytes = json.getBytes(StandardCharsets.UTF_8);
+        byte[] jsonBytes = json.getBytes("utf-8");
         final ByteArrayInputStream bis = new ByteArrayInputStream(jsonBytes);
         return new ServletInputStream() {
             @Override
@@ -89,7 +88,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**
      * 是否是Json请求
      *
-     * @param request
      */
     public boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);

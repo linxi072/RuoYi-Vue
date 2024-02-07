@@ -8,7 +8,7 @@ package com.ruoyi.common.exception.job;
 public class TaskException extends Exception {
     private static final long serialVersionUID = 1L;
 
-    private final Code code;
+    private Code code;
 
     public TaskException(String msg, Code code) {
         this(msg, code, null);
