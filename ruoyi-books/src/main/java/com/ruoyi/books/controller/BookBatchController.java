@@ -35,7 +35,7 @@ public class BookBatchController extends BaseController {
     private IBookBatchService bookBatchService;
 
 /**
- * 查询【请填写功能名称】列表
+ * 查询进书批次列表
  */
 @PreAuthorize("@ss.hasPermi('book:batch:list')")
 @GetMapping("/list")
@@ -46,19 +46,19 @@ public class BookBatchController extends BaseController {
     }
 
     /**
-     * 导出【请填写功能名称】列表
+     * 导出进书批次列表
      */
     @PreAuthorize("@ss.hasPermi('book:batch:export')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.EXPORT)
+    @Log(title = "进书批次", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, BookBatch bookBatch) {
         List<BookBatch> list = bookBatchService.selectBookBatchList(bookBatch);
         ExcelUtil<BookBatch> util = new ExcelUtil<BookBatch>(BookBatch. class);
-        util.exportExcel(response, list, "【请填写功能名称】数据");
+        util.exportExcel(response, list, "进书批次数据");
     }
 
     /**
-     * 获取【请填写功能名称】详细信息
+     * 获取进书批次详细信息
      */
     @PreAuthorize("@ss.hasPermi('book:batch:query')")
     @GetMapping(value = "/{id}")
@@ -67,30 +67,30 @@ public class BookBatchController extends BaseController {
     }
 
     /**
-     * 新增【请填写功能名称】
+     * 新增进书批次
      */
     @PreAuthorize("@ss.hasPermi('book:batch:add')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.INSERT)
+    @Log(title = "进书批次", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody BookBatch bookBatch) {
         return toAjax(bookBatchService.insertBookBatch(bookBatch));
     }
 
     /**
-     * 修改【请填写功能名称】
+     * 修改进书批次
      */
     @PreAuthorize("@ss.hasPermi('book:batch:edit')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.UPDATE)
+    @Log(title = "进书批次", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody BookBatch bookBatch) {
         return toAjax(bookBatchService.updateBookBatch(bookBatch));
     }
 
     /**
-     * 删除【请填写功能名称】
+     * 删除进书批次
      */
     @PreAuthorize("@ss.hasPermi('book:batch:remove')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.DELETE)
+    @Log(title = "进书批次", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(bookBatchService.deleteBookBatchByIds(ids));
