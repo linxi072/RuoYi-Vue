@@ -131,6 +131,12 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
+        <!-- 生成二维码包 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
